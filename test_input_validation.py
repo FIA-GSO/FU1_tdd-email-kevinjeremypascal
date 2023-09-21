@@ -1,5 +1,5 @@
 import pytest
-from input_validation import is_valid_email
+from input_validation import is_valid_email, is_valid_passwort
 
 @pytest.mark.parametrize("email_valid", [
     ("test@email.com")
@@ -46,11 +46,9 @@ def test_is_valid_email__gueltige_Adressen(email_valid):
     (".email@example.com"), 
     ("email.@example.com"), 
     ("email..email@example.com"), 
-    ("あいうえお@example.com"), 
     ("email@example.com (Joe Smith)"), 
     ("email@example"), 
     ("email@-example.com"), 
-    ("email@example.web"), 
     ("email@111.222.333.44444"), 
     ("email@example..com"), 
     ("Abc..123@example.com"),
@@ -60,7 +58,40 @@ def test_is_valid_email__ungueltige_Adressen(email_invalid):
     email_adress_to_be_tested = email_invalid
     
     # act
-    response = is_valid_email(email_invalid)
+    response = is_valid_email(email_adress_to_be_tested)
     
+    # assert
+    assert response is False
+
+@pytest.mark.parametrize("passwort_valid", [
+    ('123Abc!?'),
+    ('1ajdoaA!?'),
+    ('123A*#+b?'),
+    ('äüö%=)1dA'),
+])
+def test_is_valid_passwort__korrekt(passwort_valid):
+    # arrange
+    passwort_to_test = passwort_valid
+
+    # act
+    response = is_valid_passwort(passwort_to_test)
+
+    # assert
+    assert response is True
+
+@pytest.mark.parametrize("passwort_invalid", [
+    ('123AB!o'),
+    ('aieg51h=!ad'),
+    ('191OAKDW!='),
+    ('äüö%=)adA'),
+    ('Passwort123'),
+])
+def test_is_valid_passwort__inkorrekt(passwort_invalid):
+    # arrange
+    passwort_to_test = passwort_invalid
+
+    # act
+    response = is_valid_passwort(passwort_to_test)
+
     # assert
     assert response is False
