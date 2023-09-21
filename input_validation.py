@@ -8,5 +8,8 @@ def is_valid_email(email:str) -> bool:
     True -- email is valid
     False -- email is not valid
     """
-
-    return validate_email(email) is not None
+    try:
+        print(validate_email(email, check_deliverability=False), 'ääää')
+        return validate_email(email, check_deliverability=False) is not None
+    except:
+        return False

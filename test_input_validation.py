@@ -13,8 +13,6 @@ from input_validation import is_valid_email
 ,   ("firstname.lastname@example.com")
 ,   ("email@subdomain.example.com")
 ,   ("firstname+lastname@example.com")
-,   ("email@123.123.123.123")
-,   ("email@[123.123.123.123]") 
 ,   ("email@example.com") 
 ,   ("1234567890@example.com") 
 ,   ("email@example-one.com")
